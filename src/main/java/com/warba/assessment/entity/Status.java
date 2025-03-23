@@ -24,7 +24,7 @@ public class Status {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    public enum Statuses{
+    public enum Statuses {
         DRAFT, IN_PROGRESS, DONE, CANCELLED, SUBMITTED
     }
 }

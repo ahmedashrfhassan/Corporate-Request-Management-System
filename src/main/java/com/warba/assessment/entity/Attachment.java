@@ -1,12 +1,11 @@
 package com.warba.assessment.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "ATTACHMENTS", schema = "WARBA")
 public class Attachment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ATTACHMENT_SEQ")
     @SequenceGenerator(name = "ATTACHMENT_SEQ", sequenceName = "WARBA.ATTACHMENT_SEQ", allocationSize = 1)
@@ -36,7 +35,7 @@ public class Attachment {
     @JoinColumn(name = "ATTACHMENT_TYPE")
     @NotNull(message = "Attachment type is required")
     private AttachmentType attachmentType;
-    
+
     @ManyToOne
     @JoinColumn(name = "REQUEST_ID")
     private Request request;

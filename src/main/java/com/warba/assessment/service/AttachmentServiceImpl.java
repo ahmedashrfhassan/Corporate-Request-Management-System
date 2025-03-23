@@ -67,6 +67,13 @@ public class AttachmentServiceImpl implements AttachmentService {
         }
     }
 
+    @Override
+    public Attachment getAttachment(Long id) {
+        return attachmentRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("attachment not found")
+        );
+    }
+
     private Attachment getAttachment(MultipartFile file, String type, String uniqueFileName) {
         Attachment attachment = new Attachment();
         attachment.setFileName(uniqueFileName);
@@ -85,13 +92,6 @@ public class AttachmentServiceImpl implements AttachmentService {
     private void saveToFileSystem(MultipartFile file, String fileName) throws IOException {
         Path targetLocation = this.fileStoragePath.resolve(fileName);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    @Override
-    public Attachment getAttachment(Long id) {
-        return attachmentRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("attachment not found")
-        );
     }
 
     @Override

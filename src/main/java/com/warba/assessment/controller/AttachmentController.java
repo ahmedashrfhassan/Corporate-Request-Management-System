@@ -17,7 +17,6 @@ public class AttachmentController {
 
     private final AttachmentService attachmentService;
 
-
     @PostMapping("/upload")
     public ResponseEntity<Long> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("type") String type) {
         Long attachmentId = attachmentService.saveAttachment(file, type);

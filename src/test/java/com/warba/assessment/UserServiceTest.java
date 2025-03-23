@@ -7,10 +7,10 @@ import com.warba.assessment.dto.request.UpdateUserDto;
 import com.warba.assessment.dto.response.UserDto;
 import com.warba.assessment.entity.User;
 import com.warba.assessment.exception.BusinessValidationException;
+import com.warba.assessment.exception.ResourceNotFoundException;
 import com.warba.assessment.mapper.UserMapper;
 import com.warba.assessment.repository.UserRepository;
 import com.warba.assessment.service.UserService;
-import com.warba.assessment.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,8 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static com.warba.assessment.builder.CreateUserDtos.createUserDtoBuilder;

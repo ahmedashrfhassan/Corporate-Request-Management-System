@@ -19,7 +19,7 @@ public interface RequestMapper {
     List<RequestDto> mapToRequestDtoList(List<Request> requests);
 
     @Named("toIds")
-    static Long bToId(Attachment a) {
+    static Long toId(Attachment a) {
         return a.getId();
     }
 }

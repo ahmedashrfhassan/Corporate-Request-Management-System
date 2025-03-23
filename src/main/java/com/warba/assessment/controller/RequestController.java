@@ -41,7 +41,7 @@ public class RequestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteRequest(@PathVariable Long id) {
-        requestService.cancelRequest(id);
+        requestService.deleteRequest(id);
         return ResponseEntity.noContent().build();
     }
 }

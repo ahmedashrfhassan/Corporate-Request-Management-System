@@ -6,9 +6,10 @@ import java.util.function.Supplier;
 
 public class ResourceNotFoundSupplier {
 
+    private ResourceNotFoundSupplier() {
+    }
+
     public static Supplier<ResourceNotFoundException> entityNotFoundSupplier(String message) {
         return () -> new ResourceNotFoundException(message);
     }
-
-    private ResourceNotFoundSupplier() {}
 }

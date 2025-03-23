@@ -76,56 +76,18 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<RequestDto> getRequestsByUser(Long userId) {
-        //todo validate that assocciations of user aren't retreived if user is safely deleted
-        if (userRepository.existsById(userId)) {
+        if (!userRepository.existsByIdAndDeletedFalse(userId)) {
             throw entityNotFoundSupplier(USER_NOT_FOUND.evaluated(userId)).get();
         }
 
         return requestMapper.mapToRequestDtoList(requestRepository.findByOwnerId(userId));
     }
 
-
     @Override
     @Transactional
-    public void updateRequest(Long id, UpdateRequestDTO dto) {
-        Request request = requestRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Request not found with ID: " + id));
-
-        //todo move to validator
-        checkUserCivilIdIsNotExpired(request);
-        Status status = statusRepository.findById(dto.getStatusId())
-                .orElseThrow(() -> new EntityNotFoundException(STATUS_NOT_FOUND.evaluated(dto.getStatusId())));
-        request.setStatus(status);
-        request.setRequestName(dto.getRequestName());
-
-        // Update attachments if provided
-        if (dto.getAttachmentIds() != null && !dto.getAttachmentIds().isEmpty()) {
-            List<Attachment> attachments = attachmentRepository.findAllById(dto.getAttachmentIds());
-
-            if (attachments.size() < 2) {
-                throw new BusinessValidationException("At least 2 attachments are required. Only " + attachments.size() + " provided.");
-            }
-
-            request.setAttachments(attachments);
-        }
-//        TODO request.setUpdatedAt(LocalDateTime.now());
-        requestRepository.save(request);
-    }
-
-    private void checkUserCivilIdIsNotExpired(Request request) {
-        User owner = request.getOwner();
-        if (owner.isCivilIdExpired()) {
-            throw new BusinessValidationException(Messages.EXPIRED_CIVIL_ID.value());
-        }
-    }
-
-    @Override
-    @Transactional
-    public void cancelRequest(Long id) {
+    public void deleteRequest(Long id) {
         Request request = requestRepository.findById(id)
                 .orElseThrow(entityNotFoundSupplier(REQUEST_NOT_FOUND.evaluated(id)));
-        Status deleted = statusRepository.findByName(Status.Statuses.CANCELLED);
-        request.setStatus(deleted);
-        requestRepository.save(request);
+        requestRepository.delete(request);
     }
 }

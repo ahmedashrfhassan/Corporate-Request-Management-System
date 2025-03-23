@@ -32,7 +32,6 @@ public class User {
     @Column(name = "CIVIL_ID", unique = true)
     private String civilId;
 
-    //todo Consider using @Future for expiryDate if dates should only be in the future.
     @NotNull(message = ": Expiry date is required")
     @Column(name = "EXPIRY_DATE")
     private LocalDate expiryDate;

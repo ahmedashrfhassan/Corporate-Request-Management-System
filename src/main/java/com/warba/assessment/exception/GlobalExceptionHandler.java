@@ -81,4 +81,5 @@ public class GlobalExceptionHandler {
         private String message;
         private LocalDateTime timestamp;
         private Map<String, String> errors;
-    }}
+    }
+}

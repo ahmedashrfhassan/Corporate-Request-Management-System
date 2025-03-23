@@ -31,7 +31,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
-		<org.mapstruct.version>1.5.5.final</org.mapstruct.version>
+		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<org.projectlombok>1.18.34</org.projectlombok>
 		<org.springdoc.version>2.3.0</org.springdoc.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
@@ -209,9 +209,7 @@
 				</executions>
 				<configuration>
 					<configLocation>${checkstyle.rules}</configLocation>
-					<skip>true</skip>
-<!--					todo don't skip-->
-<!--					<skip>${checkstyle.skip}</skip>-->
+					<skip>${checkstyle.skip}</skip>
 					<violationSeverity>warning</violationSeverity>
 					<maxAllowedViolations>${checkstyle.allowedViolations}</maxAllowedViolations>
 					<failOnViolation>true</failOnViolation>

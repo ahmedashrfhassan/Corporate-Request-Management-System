@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warba.assessment.base.ApiResponse;
 import com.warba.assessment.dto.request.CreateUserDto;
 import com.warba.assessment.dto.response.UserDto;
-import com.warba.assessment.entity.User;
 import com.warba.assessment.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,11 +37,6 @@ public class UserIntegrationTest {
     void setUp() {
         userRepository.deleteAll();
     }
-
-//    @AfterEach
-//    void tearDown() {
-//        userRepository.deleteAll();
-//    }
 
     @Test
     void testCreateAndGetUser() throws Exception {

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-//todo revisit
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -68,7 +67,7 @@ public class GlobalExceptionHandler {
 
     @Data
     @AllArgsConstructor
-    static class ErrorResponse {
+    public static class ErrorResponse {
         private int status;
         private String message;
         private LocalDateTime timestamp;
@@ -76,7 +75,7 @@ public class GlobalExceptionHandler {
 
     @Data
     @AllArgsConstructor
-    static class ValidationErrorResponse {
+    public static class ValidationErrorResponse {
         private int status;
         private String message;
         private LocalDateTime timestamp;

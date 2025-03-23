@@ -25,6 +25,7 @@ public class Request {
     private Long id;
 
     @NotBlank(message = "Request name is required")
+    @Column(name = "REQUEST_NAME")
     private String requestName;
 
     @ManyToOne

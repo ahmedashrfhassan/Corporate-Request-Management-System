@@ -48,10 +48,4 @@ public class AttachmentController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
                 .body(resource);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAttachment(@PathVariable Long id) {
-        attachmentService.deleteAttachment(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 }

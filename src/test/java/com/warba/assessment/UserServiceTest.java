@@ -10,7 +10,7 @@ import com.warba.assessment.exception.BusinessValidationException;
 import com.warba.assessment.exception.ResourceNotFoundException;
 import com.warba.assessment.mapper.UserMapper;
 import com.warba.assessment.repository.UserRepository;
-import com.warba.assessment.service.UserService;
+import com.warba.assessment.service.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +34,7 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
     @Mock
     private UserMapper userMapper;
     private User testUser;

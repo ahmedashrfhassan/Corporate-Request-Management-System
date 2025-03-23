@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Filter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +25,7 @@ public class User {
     private Long id;
 
     @NotBlank(message = ": Name is required")
+    @Column(name = "NAME")
     private String name;
 
     @NotBlank(message = "Civil ID is required")

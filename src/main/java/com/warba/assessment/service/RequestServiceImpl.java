@@ -1,7 +1,6 @@
 package com.warba.assessment.service;
 
 import com.warba.assessment.dto.request.CreateRequestDto;
-import com.warba.assessment.dto.request.UpdateRequestDTO;
 import com.warba.assessment.dto.response.RequestDto;
 import com.warba.assessment.entity.Attachment;
 import com.warba.assessment.entity.Request;
@@ -21,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.warba.assessment.exception.Messages.*;
+import static com.warba.assessment.exception.Messages.REQUEST_NOT_FOUND;
+import static com.warba.assessment.exception.Messages.USER_NOT_FOUND;
 import static com.warba.assessment.exception.suppliers.ResourceNotFoundSupplier.entityNotFoundSupplier;
 
 @Service
@@ -46,7 +46,6 @@ public class RequestServiceImpl implements RequestService {
         Status status = statusRepository.findById(dto.getStatusId())
                 .orElseThrow(entityNotFoundSupplier("Status not found with ID: " + dto.getStatusId()));
 
-        //todo Validate attachments (attachment Validator) and congure required
         List<Attachment> attachments = attachmentRepository
                 .findAllById(dto.getAttachmentIds());
         if (attachments.size() < 2) {

@@ -3,16 +3,13 @@ package com.warba.assessment.service;
 import com.warba.assessment.entity.Attachment;
 import com.warba.assessment.exception.BusinessValidationException;
 import com.warba.assessment.exception.FileStorageException;
+import com.warba.assessment.exception.ResourceNotFoundException;
 import com.warba.assessment.repository.AttachmentRepository;
 import com.warba.assessment.repository.AttachmentTypeRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -55,7 +51,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
         try {
             if (fileName.contains("..")) {
-                throw new FileStorageException("Filename contains invalid path sequence " + fileName);
+                throw new FileStorageException("Filename contains invalid path sequence" + fileName);
             }
             String uniqueFileName = UUID.randomUUID() + "_" + fileName;
             saveToFileSystem(file, uniqueFileName);
@@ -70,7 +66,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     @Override
     public Attachment getAttachment(Long id) {
         return attachmentRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("attachment not found")
+                () -> new ResourceNotFoundException("attachment not found")
         );
     }
 
@@ -92,24 +88,6 @@ public class AttachmentServiceImpl implements AttachmentService {
     private void saveToFileSystem(MultipartFile file, String fileName) throws IOException {
         Path targetLocation = this.fileStoragePath.resolve(fileName);
         Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    @Override
-    public void deleteAttachment(Long id) {
-        Optional<Attachment> attachmentOpt = attachmentRepository.findById(id);
-
-        if (attachmentOpt.isPresent()) {
-            Attachment attachment = attachmentOpt.get();
-            String fileName = attachment.getFileName();
-
-            try {
-                Path filePath = this.fileStoragePath.resolve(fileName).normalize();
-                Files.deleteIfExists(filePath);
-                attachmentRepository.deleteById(id);
-            } catch (Exception ex) {
-                throw new FileStorageException("Failed to delete attachment: " + fileName, ex);
-            }
-        }
     }
 
     @Override

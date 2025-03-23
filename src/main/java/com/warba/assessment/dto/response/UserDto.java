@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-//todo keep all classes consistent
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

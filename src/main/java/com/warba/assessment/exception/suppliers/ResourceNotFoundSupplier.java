@@ -9,7 +9,7 @@ public class ResourceNotFoundSupplier {
     private ResourceNotFoundSupplier() {
     }
 
-    public static Supplier<ResourceNotFoundException> entityNotFoundSupplier(String message) {
+    public static Supplier<ResourceNotFoundException> resourceNotFoundSupplier(String message) {
         return () -> new ResourceNotFoundException(message);
     }
 }

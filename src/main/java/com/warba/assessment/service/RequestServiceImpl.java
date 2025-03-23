@@ -8,12 +8,12 @@ import com.warba.assessment.entity.Status;
 import com.warba.assessment.entity.User;
 import com.warba.assessment.exception.BusinessValidationException;
 import com.warba.assessment.exception.Messages;
+import com.warba.assessment.exception.ResourceNotFoundException;
 import com.warba.assessment.mapper.RequestMapper;
 import com.warba.assessment.repository.AttachmentRepository;
 import com.warba.assessment.repository.RequestRepository;
 import com.warba.assessment.repository.StatusRepository;
 import com.warba.assessment.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.warba.assessment.exception.Messages.REQUEST_NOT_FOUND;
 import static com.warba.assessment.exception.Messages.USER_NOT_FOUND;
-import static com.warba.assessment.exception.suppliers.ResourceNotFoundSupplier.entityNotFoundSupplier;
+import static com.warba.assessment.exception.suppliers.ResourceNotFoundSupplier.resourceNotFoundSupplier;
 
 @Service
 @RequiredArgsConstructor
@@ -38,13 +38,13 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public Long createRequest(CreateRequestDto dto) {
         User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(entityNotFoundSupplier(USER_NOT_FOUND.evaluated(dto.getUserId())));
+                .orElseThrow(resourceNotFoundSupplier(USER_NOT_FOUND.evaluated(dto.getUserId())));
 
         if (user.isCivilIdExpired()) {
             throw new BusinessValidationException(Messages.EXPIRED_CIVIL_ID.value());
         }
         Status status = statusRepository.findById(dto.getStatusId())
-                .orElseThrow(entityNotFoundSupplier("Status not found with ID: " + dto.getStatusId()));
+                .orElseThrow(resourceNotFoundSupplier(Messages.STATUS_NOT_FOUND.evaluated(dto.getStatusId())));
 
         List<Attachment> attachments = attachmentRepository
                 .findAllById(dto.getAttachmentIds());
@@ -69,14 +69,14 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDto getRequest(Long id) {
         Request req = requestRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Request not found with ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(REQUEST_NOT_FOUND.evaluated(id)));
         return requestMapper.mapRequestToRequestDto(req);
     }
 
     @Override
     public List<RequestDto> getRequestsByUser(Long userId) {
         if (!userRepository.existsByIdAndDeletedFalse(userId)) {
-            throw entityNotFoundSupplier(USER_NOT_FOUND.evaluated(userId)).get();
+            throw resourceNotFoundSupplier(USER_NOT_FOUND.evaluated(userId)).get();
         }
 
         return requestMapper.mapToRequestDtoList(requestRepository.findByOwnerId(userId));
@@ -86,7 +86,7 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public void deleteRequest(Long id) {
         Request request = requestRepository.findById(id)
-                .orElseThrow(entityNotFoundSupplier(REQUEST_NOT_FOUND.evaluated(id)));
+                .orElseThrow(resourceNotFoundSupplier(REQUEST_NOT_FOUND.evaluated(id)));
         requestRepository.delete(request);
     }
 }

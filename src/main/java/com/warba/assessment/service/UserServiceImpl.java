@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static com.warba.assessment.exception.Messages.USER_NOT_FOUND;
-import static com.warba.assessment.exception.suppliers.ResourceNotFoundSupplier.entityNotFoundSupplier;
+import static com.warba.assessment.exception.suppliers.ResourceNotFoundSupplier.resourceNotFoundSupplier;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(entityNotFoundSupplier(USER_NOT_FOUND.evaluated(id)));
+                .orElseThrow(resourceNotFoundSupplier(USER_NOT_FOUND.evaluated(id)));
         return userMapper.convertToDTO(user);
     }
 
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Boolean updateUser(Long id, UpdateUserDto dto) {
         User existingUser = userRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(entityNotFoundSupplier(USER_NOT_FOUND.evaluated(id)));
+                .orElseThrow(resourceNotFoundSupplier(USER_NOT_FOUND.evaluated(id)));
 
         existingUser.setName(dto.getName());
         existingUser.setExpiryDate(dto.getExpiryDate());
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(Long id) {
         User existingUser = userRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(entityNotFoundSupplier(USER_NOT_FOUND.evaluated(id)));
+                .orElseThrow(resourceNotFoundSupplier(USER_NOT_FOUND.evaluated(id)));
 
         existingUser.setDeleted(true);
         userRepository.save(existingUser);

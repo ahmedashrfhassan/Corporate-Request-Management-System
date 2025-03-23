@@ -61,7 +61,7 @@ class UserServiceTest {
         assertNotNull(result);
         assertEquals(testUserDto.getId(), result.getId());
         assertEquals(testUserDto.getName(), result.getName());
-        verify(userRepository, times(1)).findById(1L);
+        verify(userRepository).findById(1L);
     }
 
     @Test
@@ -71,7 +71,7 @@ class UserServiceTest {
 
         // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> userService.getUserById(1L));
-        verify(userRepository, times(1)).findById(1L);
+        verify(userRepository).findById(1L);
     }
 
     @Test
@@ -86,8 +86,8 @@ class UserServiceTest {
 
         // Assert
         assertNotNull(id);
-        verify(userRepository, times(1)).findByCivilId(anyString());
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository).findByCivilId(anyString());
+        verify(userRepository).save(any(User.class));
     }
 
     @Test
@@ -97,7 +97,7 @@ class UserServiceTest {
 
         // Act & Assert
         assertThrows(BusinessValidationException.class, () -> userService.createUser(testCreateUserDto));
-        verify(userRepository, times(1)).findByCivilId(anyString());
+        verify(userRepository).findByCivilId(anyString());
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -119,8 +119,8 @@ class UserServiceTest {
 
         // Assert
         assertNotNull(updated);
-        verify(userRepository, times(1)).findByIdAndDeletedFalse(1L);
-        verify(userRepository, times(1)).save(any(User.class));
+        verify(userRepository).findByIdAndDeletedFalse(1L);
+        verify(userRepository).save(any(User.class));
     }
 
     @Test
@@ -134,7 +134,7 @@ class UserServiceTest {
         // Assert
         assertNotNull(testUser.getDeleted());
         assertTrue(testUser.getDeleted());
-        verify(userRepository, times(1)).findByIdAndDeletedFalse(1L);
+        verify(userRepository).findByIdAndDeletedFalse(1L);
     }
 
     @Test
@@ -144,7 +144,7 @@ class UserServiceTest {
 
         // Act & Assert
         assertThrows(ResourceNotFoundException.class, () -> userService.deleteUser(1L));
-        verify(userRepository, times(1)).findByIdAndDeletedFalse(1L);
+        verify(userRepository).findByIdAndDeletedFalse(1L);
     }
 
     @Test

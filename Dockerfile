@@ -17,7 +17,7 @@ RUN ./mvnw dependency:go-offline -B
 COPY src src
 
 # Build the application (skip tests during build)
-RUN ./mvnw package -DskipTests
+RUN ./mvnw package -DskipTests && find target -name "*.jar" -not -name "*source.jar" -name "*.jar" -not -name "*javadoc.jar" -exec mv {} target/app.jar \;
 
 # Create a volume to persist H2 database files
 VOLUME /data/db
@@ -26,4 +26,4 @@ VOLUME /data/db
 EXPOSE 8080
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "/app/target/*.jar"]
+ENTRYPOINT ["java", "-jar", "/app/target/app.jar"]

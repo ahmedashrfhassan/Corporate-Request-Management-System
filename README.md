@@ -88,11 +88,30 @@ This project uses JaCoCo for code coverage reporting:
 - **Update User**: `PUT /api/users/{id}`
 - **Delete User**: `DELETE /api/users/{id}`
 
+### Attachment Endpoints
+
+- **Upload Attachment**: `POST /api/attachments/upload`
+- **Get Attachment by ID**: `GET /api/attachments/{id}`
+- **Download Attachment**: `DELETE /api/attachments/download/{id}`
+
 ### Request Endpoints
 
 - **Create Request**: `POST /api/requests`
 - **Get Request by ID**: `GET /api/requests/{id}`
 - **Delete Request**: `DELETE /api/requests/{id}`
+
+### Accessing Swagger UI
+
+Once the application is running, you can interact with the API:
+
+- Swagger UI: Open a browser and navigate to `http://localhost:8080/swagger-ui.html`
+
+### OpenAPI JSON or YAML Specification
+
+You can also access the OpenAPI specification in the following formats:
+
+- JSON: `http://localhost:8080/v3/api-docs`
+- YAML: `http://localhost:8080/v3/api-docs.yaml`
 
 ## Database
 

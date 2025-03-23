@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.warba.assessment</groupId>
-	<artifactId>user-management-app</artifactId>
+	<artifactId>request-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>user-management-app</name>
+	<name>request-management-system</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

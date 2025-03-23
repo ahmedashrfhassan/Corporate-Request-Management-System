@@ -3,6 +3,7 @@ package com.warba.assessment.exception;
 public enum Messages {
     USER_NOT_FOUND("User not found with ID: %s"),
     EXPIRED_CIVIL_ID("Civil ID is expired"),
+    VALIDATION_FAILED("validation failed"),
     REQUEST_NOT_FOUND("Request not found with ID: %d"),
     STATUS_NOT_FOUND("Status not found with ID: %D");
 

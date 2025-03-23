@@ -25,9 +25,9 @@ This Spring Boot application provides a comprehensive solution for managing corp
 ### Local Development Setup
 
 1. **Clone the repository**
-   link to the repo [Request Management System Repository](https://github.com/ahmedashrfhassan/user-management-app)
+   link to the repo [Request Management System Repository](https://github.com/ahmedashrfhassan/Corporate-Request-Management-System)
    ```bash
-   git clone https://github.com/ahmedashrfhassan/user-management-app
+   git clone https://github.com/ahmedashrfhassan/Corporate-Request-Management-System.git
    cd corporate-request-system
    ```
 

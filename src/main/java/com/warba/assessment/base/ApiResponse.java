@@ -22,27 +22,26 @@ public class ApiResponse<T> {
 
     private int code;
 
-    private List<ErrorDetail> errors; // Optional: Extra details for failures
+    private List<ErrorDetail> errors;
 
-    // Nested class to represent each error
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ErrorDetail {
-        private String field;   // Relevant field causing error (if applicable)
-        private String error;   // Detailed error message
-        private String code;    // Error code (useful for i18n or debugging)
+        private String field;
+        private String error;
+        private String code;
 
         public ErrorDetail(String error) {
             this.error = error;
         }
+
         public ErrorDetail(String error, String code) {
             this.error = error;
             this.code = code;
         }
     }
-
 
     public static <T> ApiResponse<T> ok(T payload, String message) {
         return ApiResponse.<T>builder()
@@ -67,24 +66,6 @@ public class ApiResponse<T> {
                 .message(message)
                 .payload(payload)
                 .code(HttpStatus.CREATED.value())
-                .build();
-    }
-
-    public static <T> ApiResponse<T> noContent(String message) {
-        return ApiResponse.<T>builder()
-                .success(true)
-                .message(message)
-                .code(HttpStatus.NO_CONTENT.value())
-                .build();
-    }
-
-    public static <T> ApiResponse<T> failure(String message, List<ErrorDetail> errorDetails) {
-        return ApiResponse.<T>builder()
-                .success(false)
-                .message(message)
-                .payload(null)
-                .code(HttpStatus.BAD_REQUEST.value())
-                .errors(errorDetails)
                 .build();
     }
 

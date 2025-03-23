@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import static com.warba.assessment.constants.ResponseMessages.VALIDATION_FAILED;
+import static com.warba.assessment.exception.Messages.VALIDATION_FAILED;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -26,7 +26,7 @@ public class UserController {
                                                        @Parameter(hidden = true) Errors errors) {
 
         if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(ApiResponse.failure(VALIDATION_FAILED, errors));
+            return ResponseEntity.badRequest().body(ApiResponse.failure(VALIDATION_FAILED.value(), errors));
         }
 
         Long userId = userService.createUser(dto);
@@ -47,7 +47,7 @@ public class UserController {
                                                            @Parameter(hidden = true) Errors errors) {
 
         if (errors.hasErrors()) {
-            return ResponseEntity.badRequest().body(ApiResponse.failure(VALIDATION_FAILED, errors));
+            return ResponseEntity.badRequest().body(ApiResponse.failure(VALIDATION_FAILED.value(), errors));
         }
         Boolean updated = userService.updateUser(id, dto);
         return ResponseEntity.ok(ApiResponse.ok(updated, "User updated successfully"));

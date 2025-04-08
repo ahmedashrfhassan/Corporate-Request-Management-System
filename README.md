@@ -28,7 +28,7 @@ This Spring Boot application provides a comprehensive solution for managing corp
    link to the repo [Request Management System Repository](https://github.com/ahmedashrfhassan/Corporate-Request-Management-System)
    ```bash
    git clone https://github.com/ahmedashrfhassan/Corporate-Request-Management-System.git
-   cd corporate-request-system
+   cd Corporate-Request-Management-System
    ```
 
 2. **Build the application**

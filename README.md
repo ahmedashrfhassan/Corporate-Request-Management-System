@@ -118,7 +118,6 @@ You can also access the OpenAPI specification in the following formats:
 The application uses H2 database with file storage configured through Docker volumes to persist data between container restarts.
 
 H2 Console is available at: `http://localhost:8080/h2-console` with the following configuration:
-- JDBC URL: `jdbc:h2:file:/data/db/corporate-requests`
 - Username: `sa`
 - Password: `password`
 
